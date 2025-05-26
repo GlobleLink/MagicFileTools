@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smart File Tools | Free Online File Conversion Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Smart File Tools offers free and fast tools to convert and manage your files, including image to PDF, image compression, PDF merging, and more.">
+  <meta name="keywords" content="file converter, image to pdf, resize image, compress image, pdf merger, pdf splitter, text to pdf, jpg to png, image tools">
+  <meta name="author" content="Smart File Tools">
+  <meta property="og:title" content="Smart File Tools | Free Online File Conversion Tools">
+  <meta property="og:description" content="Free and fast online tools to convert images, merge PDFs, resize files, and more. No sign-up required.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourdomain.com">
+  <meta property="og:image" content="https://yourdomain.com/assets/preview-cover.png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      -webkit-text-size-adjust: 100%;
+      box-sizing: border-box;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+    body.light-mode {
+      background-color: #f4f8fb;
+      color: #1a1a1a;
+    }
+    body.dark-mode {
+      background-color: #000000;
+      color: #ffffff;
+    }
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0;
+      left: 0;
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #00c3ff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 1000;
+      animation: pulse 2.5s ease-in-out infinite;
+      transition: transform 0.3s;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0px rgba(0, 195, 255, 0.4); transform: scale(1); }
+      50% { box-shadow: 0 0 20px rgba(0, 195, 255, 0.9); transform: scale(1.05); }
+      100% { box-shadow: 0 0 0px rgba(0, 195, 255, 0.4); transform: scale(1); }
+    }
+    #tip-bubble {
+      position: fixed;
+      top: 65px;
+      right: 20px;
+      background-color: #00c3ff;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      box-shadow: 0 0 8px #00c3ff;
+      z-index: 999;
+      animation: fadeout 5s forwards;
+    }
+    @keyframes fadeout {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; display: none; }
+    }
+    header {
+      text-align: center;
+      padding: 60px 20px 20px;
+    }
+    header h1 {
+      font-size: 32px;
+      color: #00d0ff;
+      text-shadow: 0 0 10px #00c3ff;
+    }
+    header p {
+      font-size: 15px;
+      color: inherit;
+      margin: 0 auto;
+      max-width: 90%;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 40px auto 60px;
+      padding: 0 20px;
+    }
+    .card {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 0 15px rgba(0, 204, 255, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+      padding: 10px;
+      text-align: center;
+    }
+    .card i {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #00e0ff;
+      transition: color 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.05) rotate(-1deg);
+      box-shadow: 0 0 25px #00ffff;
+    }
+    .card:hover i {
+      color: #69dbff;
+    }
+    footer {
+      text-align: center;
+      font-size: 14px;
+      padding: 30px 20px;
+      color: inherit;
+    }
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 24px;
+      }
+      .card {
+        font-size: 13px;
+        padding: 8px;
+      }
+      .card i {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body class="dark-mode">
+  <div id="particles-js"></div>
+  <button class="theme-toggle" id="themeBtn">☀️ Switch to Light Mode</button>
+  <div id="tip-bubble">🌟 Click here to toggle light/dark mode</div>
+
+  <header>
+    <h1>Smart File Tools</h1>
+    <p>Fast, Free, and Friendly File Tools for Everyone</p>
+  </header>
+
+  <div class="container">
+    <a class="card" href="image-to-pdf.html"><i class="fas fa-file-image"></i>Image to PDF</a>
+    <a class="card" href="image-resizer.html"><i class="fas fa-expand-arrows-alt"></i>Image Resizer</a>
+    <a class="card" href="image-compressor.html"><i class="fas fa-compress"></i>Image Compressor</a>
+    <a class="card" href="jpg-png-converter.html"><i class="fas fa-exchange-alt"></i>JPG ↔ PNG Converter</a>
+    <a class="card" href="merge-pdf.html"><i class="fas fa-file-merge"></i>Merge PDFs</a>
+    <a class="card" href="split-pdf.html"><i class="fas fa-scissors"></i>Split PDFs</a>
+    <a class="card" href="ocr-image.html"><i class="fas fa-text-height"></i>Image to Text</a>
+    <a class="card" href="text-to-pdf.html"><i class="fas fa-file-alt"></i>Text to PDF</a>
+  </div>
+
+  <footer>
+    &copy; 2025 Smart File Tools. All Rights Reserved.
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80 },
+        color: { value: "#00d0ff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5 },
+        size: { value: 3 },
+        move: { enable: true, speed: 1.5 },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#00ffff",
+          opacity: 0.4,
+          width: 1
+        }
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const body = document.body;
+      const button = document.getElementById("themeBtn");
+
+      if (body.classList.contains("dark-mode")) {
+        button.innerText = "☀️ Switch to Light Mode";
+      } else {
+        button.innerText = "🌙 Switch to Dark Mode";
+      }
+
+      button.addEventListener("click", () => {
+        body.classList.toggle("light-mode");
+        body.classList.toggle("dark-mode");
+
+        if (body.classList.contains("dark-mode")) {
+          button.innerText = "☀️ Switch to Light Mode";
+        } else {
+          button.innerText = "🌙 Switch to Dark Mode";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

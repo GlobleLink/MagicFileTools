@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Split PDF | Extract Pages from PDF Online Free</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Split PDF online. Extract PDF pages to separate files. Free, secure, fast, no watermark, no registration.">
+  <meta name="keywords" content="split pdf, pdf splitter, extract pdf pages, online pdf tool, smart file tools">
+  <meta name="author" content="Smart File Tools">
+  <meta property="og:title" content="Split PDF - Smart File Tools">
+  <meta property="og:description" content="Free online PDF splitter. Extract selected PDF pages or every page to a new file.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourdomain.com/split-pdf.html">
+  <meta property="og:image" content="https://yourdomain.com/assets/split-pdf-preview.png">
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.dark-mode {
+      background-color: #000;
+      color: #fff;
+    }
+    body.light-mode {
+      background-color: #f4f8fb;
+      color: #111;
+    }
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      min-width: 160px;
+      max-width: 220px;
+      padding: 10px 22px;
+      background: #00c3ff;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2.5s ease-in-out infinite;
+      box-shadow: 0 0 14px #00c3ff99;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+    .home-link {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      padding: 10px 20px;
+      background: #202840f0;
+      color: #fff;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 12px #00c3ff77;
+      z-index: 1000;
+      transition: background 0.3s, color 0.3s;
+    }
+    .home-link:hover {
+      background: #0033ffcc;
+      color: #fff;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0px rgba(0, 195, 255, 0.4); transform: scale(1); }
+      50% { box-shadow: 0 0 20px rgba(0, 195, 255, 0.9); transform: scale(1.05); }
+      100% { box-shadow: 0 0 0px rgba(0, 195, 255, 0.4); transform: scale(1); }
+    }
+    header {
+      text-align: center;
+      padding: 60px 20px 20px;
+    }
+    header h1 {
+      font-size: 32px;
+      color: #00d0ff;
+      text-shadow: 0 0 8px #00c3ff;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 12px rgba(0,204,255,0.2);
+      text-align: center;
+    }
+    input[type="file"], input[type="text"] {
+      margin: 10px 0;
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+    }
+    button, .download-btn, .zip-btn {
+      margin-top: 10px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      font-size: 16px;
+      border-radius: 8px;
+      background: linear-gradient(45deg, #00d2ff, #3a47d5);
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      text-align: center;
+      display: block;
+    }
+    button:hover, .download-btn:hover, .zip-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 12px #3a47d5;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      margin: 10px 0;
+      color: #ccc;
+      font-size: 14px;
+      max-height: 260px;
+      overflow-y: auto;
+    }
+    .file-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .file-info {
+      flex: 1 1 200px;
+      min-width: 0;
+      word-break: break-all;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .download-btn {
+      width: auto;
+      min-width: 100px;
+      margin: 0 0 0 8px;
+      padding: 7px 16px;
+      font-size: 14px;
+      border-radius: 7px;
+      background: linear-gradient(45deg, #00d2ff, #3a47d5);
+      color: white;
+      cursor: pointer;
+      border: none;
+      transition: 0.3s;
+    }
+    .download-btn:active {
+      background: linear-gradient(45deg, #3a47d5, #00d2ff);
+    }
+    .zip-btn {
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      background: linear-gradient(45deg, #0033ff, #00d2ff);
+      color: white;
+      font-weight: bold;
+    }
+    .seo-content {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #ccc;
+      text-align: left;
+      line-height: 1.6;
+      transition: color 0.3s;
+    }
+    body.light-mode .seo-content {
+      color: #333;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 10px; }
+      .theme-toggle { top: 8px; right: 8px; padding: 8px 12px; min-width:120px; font-size: 13px;}
+      .home-link { top: 8px; left: 8px; padding: 8px 12px; font-size: 14px;}
+      .download-btn { min-width: 65px; font-size: 13px; padding: 5px 10px;}
+    }
+  </style>
+</head>
+<body class="dark-mode">
+  <div id="particles-js"></div>
+  <a href="index.html" class="home-link">🏠 Home</a>
+  <button class="theme-toggle" id="themeBtn">☀️ Switch to Light Mode</button>
+
+  <header>
+    <h1>📄 Split PDF</h1>
+  </header>
+  <div class="container">
+    <p style="color:#81e6ff;font-size:15px;margin:0 0 8px 0;">
+      💡 Upload a PDF and split it to individual pages or extract custom pages (e.g. <span style="color:#ff375f;font-weight:bold;">1,3,5</span> or <span style="color:#ff375f;font-weight:bold;">2-7</span>). Leave blank to split every page.
+    </p>
+    <input type="file" id="pdfUpload" accept="application/pdf">
+    <input type="text" id="pages" placeholder="Pages to extract (e.g. 1,3,5 or 2-6)">
+    <ul id="splitList"></ul>
+    <button onclick="splitPDF()">Split PDF</button>
+    <button class="zip-btn" onclick="downloadZip()" style="display:none;" id="zipBtn">Download All (ZIP)</button>
+  </div>
+
+  <section class="seo-content">
+    <div class="container">
+      <p>Use this free online PDF splitter to separate PDF pages into new files. Extract every page or specify the pages you want. Safe, fast, no registration or watermark.</p>
+    </div>
+  </section>
+
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80 },
+        color: { value: "#00d0ff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5 },
+        size: { value: 3 },
+        move: { enable: true, speed: 1.5 },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#00ffff",
+          opacity: 0.4,
+          width: 1
+        }
+      }
+    });
+
+    const pdfUpload = document.getElementById('pdfUpload');
+    const pagesInput = document.getElementById('pages');
+    const splitList = document.getElementById('splitList');
+    const zipBtn = document.getElementById('zipBtn');
+    let splitFiles = [];
+    let pdfFileName = "";
+
+    pdfUpload.addEventListener('change', () => {
+      splitList.innerHTML = '';
+      splitFiles = [];
+      zipBtn.style.display = "none";
+      pdfFileName = pdfUpload.files.length ? pdfUpload.files[0].name.replace(/\.pdf$/i, '') : "";
+    });
+
+    function parsePages(input, total) {
+      if (!input.trim()) {
+        // 默认全部
+        return Array.from({length: total}, (_, i) => i);
+      }
+      let result = [];
+      input.split(',').forEach(part => {
+        if (part.includes('-')) {
+          let [start, end] = part.split('-').map(x=>parseInt(x)-1);
+          if (!isNaN(start) && !isNaN(end) && start<=end && start>=0 && end<total) {
+            for(let i=start; i<=end; i++) result.push(i);
+          }
+        } else {
+          let idx = parseInt(part)-1;
+          if (!isNaN(idx) && idx>=0 && idx<total) result.push(idx);
+        }
+      });
+      return Array.from(new Set(result)); // 去重
+    }
+
+    function formatPageName(pageIdx, totalPages) {
+      return totalPages === 1
+        ? `${pdfFileName}.pdf`
+        : `${pdfFileName}-page-${pageIdx+1}.pdf`;
+    }
+
+    function showDownloadList() {
+      splitList.innerHTML = '';
+      splitFiles.forEach((file, i) => {
+        const li = document.createElement('li');
+        li.className = 'file-item';
+        const info = document.createElement('div');
+        info.className = 'file-info';
+        info.innerHTML = `<strong>${pdfFileName}.pdf <span style="color:#47ffe1;">→</span> <span style="color:#ffd700;">${file.name}</span></strong>`;
+        const btn = document.createElement('button');
+        btn.className = 'download-btn';
+        btn.textContent = 'Download';
+        btn.onclick = () => {
+          const url = URL.createObjectURL(file.blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = file.name;
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          }, 200);
+        };
+        li.appendChild(info);
+        li.appendChild(btn);
+        splitList.appendChild(li);
+      });
+    }
+
+    async function splitPDF() {
+      if (!pdfUpload.files.length) return alert('Please upload a PDF file!');
+      splitFiles = [];
+      const file = pdfUpload.files[0];
+      pdfFileName = file.name.replace(/\.pdf$/i, '');
+      const bytes = await file.arrayBuffer();
+      const pdfDoc = await PDFLib.PDFDocument.load(bytes);
+      const total = pdfDoc.getPageCount();
+      const selPages = parsePages(pagesInput.value, total);
+      if (!selPages.length) return alert('No valid page selected.');
+      for (const idx of selPages) {
+        const newPdf = await PDFLib.PDFDocument.create();
+        const [copied] = await newPdf.copyPages(pdfDoc, [idx]);
+        newPdf.addPage(copied);
+        const pdfBytes = await newPdf.save();
+        const blob = new Blob([pdfBytes], {type: 'application/pdf'});
+        splitFiles.push({
+          name: formatPageName(idx, total),
+          blob
+        });
+      }
+      showDownloadList();
+      zipBtn.style.display = "block";
+    }
+
+    function downloadZip() {
+      if (!splitFiles.length) return;
+      const zip = new JSZip();
+      splitFiles.forEach(file => {
+        zip.file(file.name, file.blob);
+      });
+      zip.generateAsync({type:'blob'}).then(function(content){
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(content);
+        link.download = pdfFileName + '-split.zip';
+        link.click();
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const body = document.body;
+      const button = document.getElementById("themeBtn");
+      function updateText() {
+        button.innerText = body.classList.contains("dark-mode")
+          ? "☀️ Switch to Light Mode"
+          : "🌙 Switch to Dark Mode";
+      }
+      updateText();
+      button.addEventListener("click", () => {
+        body.classList.toggle("light-mode");
+        body.classList.toggle("dark-mode");
+        updateText();
+      });
+    });
+
+    // Helper for PDF-Lib to Blob conversion
+    // (already used above, for completeness here)
+  </script>
+</body>
+</html>

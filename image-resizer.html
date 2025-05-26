@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Resizer | Resize Images Online Free - Smart File Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Resize your images online for free. Upload a photo, set the desired width or height, and download the resized image instantly.">
+  <meta name="keywords" content="resize image, image resizer, online image tool, photo resize, smart file tools">
+  <meta name="author" content="Smart File Tools">
+  <meta property="og:title" content="Image Resizer - Smart File Tools">
+  <meta property="og:description" content="Free tool to resize your images online. Upload, set dimensions, and download instantly.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourdomain.com/image-resizer.html">
+  <meta property="og:image" content="https://yourdomain.com/assets/image-resizer-preview.png">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.dark-mode {
+      background-color: #000;
+      color: #fff;
+    }
+    body.light-mode {
+      background-color: #f4f8fb;
+      color: #111;
+    }
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      min-width: 160px;
+      max-width: 220px;
+      padding: 10px 22px;
+      background: #00c3ff;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2.5s ease-in-out infinite;
+      box-shadow: 0 0 14px #00c3ff99;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+    .home-link {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      padding: 10px 20px;
+      background: #202840f0;
+      color: #fff;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 12px #00c3ff77;
+      z-index: 1000;
+      transition: background 0.3s, color 0.3s;
+    }
+    .home-link:hover {
+      background: #0033ffcc;
+      color: #fff;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0px rgba(0, 195, 255, 0.4); transform: scale(1);}
+      50% { box-shadow: 0 0 20px rgba(0, 195, 255, 0.9); transform: scale(1.05);}
+      100% { box-shadow: 0 0 0px rgba(0, 195, 255, 0.4); transform: scale(1);}
+    }
+    header {
+      text-align: center;
+      padding: 60px 20px 20px;
+    }
+    header h1 {
+      font-size: 32px;
+      color: #00d0ff;
+      text-shadow: 0 0 8px #00c3ff;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 12px rgba(0,204,255,0.2);
+      text-align: center;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    body.light-mode .container {
+      background: rgba(255,255,255,0.94);
+      box-shadow: 0 0 12px rgba(180,220,255,0.13);
+    }
+    body.dark-mode .container {
+      background: rgba(255,255,255,0.05);
+      box-shadow: 0 0 12px rgba(0,204,255,0.2);
+    }
+    input[type="file"], input[type="number"] {
+      margin: 10px 0;
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+    }
+    canvas { margin-top: 20px; max-width: 100%; border-radius: 8px; box-shadow: 0 0 12px #00e7ff66;}
+    body.light-mode #canvas { background: #fff; }
+    body.dark-mode #canvas { background: #111; }
+    button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      font-size: 16px;
+      border-radius: 8px;
+      background: linear-gradient(45deg, #00d2ff, #3a47d5);
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover { transform: scale(1.02); box-shadow: 0 0 12px #3a47d5; }
+    #downloadLink {
+      display: none;
+      text-decoration: none;
+      margin-top: 12px;
+      width: 100%;
+    }
+    #downloadBtn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      font-size: 16px;
+      border-radius: 8px;
+      background: linear-gradient(45deg, #0033ff, #00d2ff);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: 0.3s;
+    }
+    #downloadBtn:hover { background: linear-gradient(45deg, #00d2ff, #0033ff);}
+    .seo-content {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #ccc;
+      text-align: left;
+      line-height: 1.6;
+      transition: color 0.3s;
+    }
+    body.light-mode .seo-content { color: #333; }
+    @media (max-width: 600px) {
+      .container { padding: 10px; }
+      .theme-toggle { top: 8px; right: 8px; padding: 8px 12px; min-width:120px; font-size: 13px;}
+      .home-link { top: 8px; left: 8px; padding: 8px 12px; font-size: 14px;}
+      #downloadBtn { font-size:13px; padding: 8px 0;}
+    }
+  </style>
+</head>
+<body class="dark-mode">
+  <div id="particles-js"></div>
+  <a href="index.html" class="home-link">🏠 Home</a>
+  <button class="theme-toggle" id="themeBtn">☀️ Switch to Light Mode</button>
+  <header>
+    <h1>📐 Image Resizer</h1>
+  </header>
+  <div class="container">
+    <input type="file" id="upload" accept="image/*">
+    <input type="number" id="width" placeholder="Width (px)" />
+    <input type="number" id="height" placeholder="Height (px)" />
+    <button onclick="resizeImage()">Resize Image</button>
+    <canvas id="canvas"></canvas>
+    <a id="downloadLink" download="resized-image.png">
+      <button id="downloadBtn">Download Image</button>
+    </a>
+  </div>
+  <section class="seo-content">
+    <div class="container">
+      <p>Resize any image online using our free tool. Upload a photo, enter your desired width and/or height, and get an instant resized version ready for download. Works for all common formats including JPG, PNG, and GIF. No signup required, browser-based and secure.</p>
+    </div>
+  </section>
+  <script>
+    let originalImg = new Image();
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let fileName = 'resized-image.png';
+
+    function setParticlesTheme(isDark) {
+      particlesJS("particles-js", {
+        particles: {
+          number: { value: 80 },
+          color: { value: isDark ? "#00d0ff" : "#3399cc" },
+          shape: { type: "circle" },
+          opacity: { value: isDark ? 0.5 : 0.18 },
+          size: { value: 3 },
+          move: { enable: true, speed: 1.5 },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: isDark ? "#00ffff" : "#85bde6",
+            opacity: isDark ? 0.4 : 0.17,
+            width: 1
+          }
+        }
+      });
+    }
+    function reloadParticles(isDark) {
+      if (window.pJSDom && window.pJSDom.length) {
+        window.pJSDom[0].pJS.fn.vendors.destroypJS();
+        window.pJSDom = [];
+      }
+      setParticlesTheme(isDark);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const body = document.body;
+      const button = document.getElementById("themeBtn");
+      function updateText() {
+        button.innerText = body.classList.contains("dark-mode")
+          ? "☀️ Switch to Light Mode"
+          : "🌙 Switch to Dark Mode";
+      }
+      updateText();
+      reloadParticles(body.classList.contains("dark-mode"));
+
+      button.addEventListener("click", () => {
+        body.classList.toggle("light-mode");
+        body.classList.toggle("dark-mode");
+        updateText();
+        reloadParticles(body.classList.contains("dark-mode"));
+        // canvas背景色同步
+        canvas.style.background = body.classList.contains('dark-mode') ? "#111" : "#fff";
+      });
+    });
+
+    document.getElementById('upload').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      fileName = (file.name ? file.name.replace(/\.\w+$/, '-resized.png') : 'resized-image.png');
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        originalImg.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    originalImg.onload = function() {
+      document.getElementById('width').value = originalImg.width;
+      document.getElementById('height').value = originalImg.height;
+      canvas.width = originalImg.width;
+      canvas.height = originalImg.height;
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.drawImage(originalImg, 0, 0, originalImg.width, originalImg.height);
+      document.getElementById('downloadLink').style.display = 'none';
+      // canvas背景色同步主题
+      const body = document.body;
+      canvas.style.background = body.classList.contains('dark-mode') ? "#111" : "#fff";
+    };
+
+    function resizeImage() {
+      const width = parseInt(document.getElementById('width').value);
+      const height = parseInt(document.getElementById('height').value);
+      if (!originalImg.src || !width || !height) {
+        alert('Please upload an image and set both width and height.');
+        return;
+      }
+      canvas.width = width;
+      canvas.height = height;
+      ctx.clearRect(0,0,width,height);
+      ctx.drawImage(originalImg, 0, 0, width, height);
+      const dataURL = canvas.toDataURL("image/png");
+      const downloadLink = document.getElementById('downloadLink');
+      downloadLink.href = dataURL;
+      downloadLink.download = fileName;
+      downloadLink.style.display = 'block';
+      // canvas背景色同步主题
+      const body = document.body;
+      canvas.style.background = body.classList.contains('dark-mode') ? "#111" : "#fff";
+    }
+  </script>
+</body>
+</html>

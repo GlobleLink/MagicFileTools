@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text to PDF | Convert TXT/Text to PDF Online Free</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Convert TXT files or custom text to PDF online for free. Batch converter, fast, secure, no watermark, no registration.">
+  <meta name="keywords" content="text to pdf, txt to pdf, convert txt to pdf, online text to pdf, free pdf tool, smart file tools">
+  <meta name="author" content="Smart File Tools">
+  <meta property="og:title" content="Text to PDF - Smart File Tools">
+  <meta property="og:description" content="Free online tool to convert text or TXT files to PDF in seconds. Batch convert, secure, no registration needed.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourdomain.com/text-to-pdf.html">
+  <meta property="og:image" content="https://yourdomain.com/assets/text-to-pdf-preview.png">
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {margin:0; font-family:'Orbitron',sans-serif; transition: background-color .3s,color .3s;}
+    body.dark-mode {background:#000;color:#fff;}
+    body.light-mode {background:#f4f8fb;color:#111;}
+    #particles-js {position:fixed;width:100%;height:100%;top:0;left:0;z-index:-1;}
+    .theme-toggle {position:fixed;top:24px;right:24px;min-width:160px;max-width:220px;padding:10px 22px;background:#00c3ff;color:#fff;border:none;border-radius:20px;font-weight:bold;cursor:pointer;z-index:1000;animation:pulse 2.5s ease-in-out infinite;box-shadow:0 0 14px #00c3ff99;transition:background .3s,color .3s,box-shadow .3s;}
+    .home-link {position:fixed;top:24px;left:24px;padding:10px 20px;background:#202840f0;color:#fff;border-radius:20px;font-weight:bold;text-decoration:none;box-shadow:0 0 12px #00c3ff77;z-index:1000;transition:background .3s,color .3s;}
+    .home-link:hover {background:#0033ffcc;color:#fff;}
+    @keyframes pulse {0%{box-shadow:0 0 0px rgba(0,195,255,.4);transform:scale(1);}50%{box-shadow:0 0 20px rgba(0,195,255,.9);transform:scale(1.05);}100%{box-shadow:0 0 0px rgba(0,195,255,.4);transform:scale(1);}}
+    header {text-align:center;padding:60px 20px 20px;}
+    header h1 {font-size:32px;color:#00d0ff;text-shadow:0 0 8px #00c3ff;}
+    .container {max-width:650px;margin:auto;padding:20px;background:rgba(255,255,255,.05);border-radius:16px;backdrop-filter:blur(10px);box-shadow:0 0 12px rgba(0,204,255,.2);text-align:center;}
+    input[type="file"] {margin:10px 0;width:100%;padding:10px;border-radius:8px;border:none;font-size:14px;}
+    textarea {margin:8px 0;width:100%;min-height:100px;max-height:280px;padding:10px;border-radius:8px;border:none;font-size:15px;background:rgba(35,45,65,.08);color:#36ebcb;font-family:'JetBrains Mono','Consolas',monospace;transition:background .3s,color .3s;resize:vertical;}
+    body.light-mode textarea {background:#f2f9ff;color:#234;}
+    button,.download-btn,.zip-btn {margin-top:10px;width:100%;padding:12px;border:none;font-size:16px;border-radius:8px;background:linear-gradient(45deg,#00d2ff,#3a47d5);color:white;cursor:pointer;transition:.3s;text-align:center;display:block;}
+    button:hover,.download-btn:hover,.zip-btn:hover {transform:scale(1.02);box-shadow:0 0 12px #3a47d5;}
+    ul {list-style:none;padding:0;text-align:left;margin:10px 0;color:#ccc;font-size:14px;max-height:320px;overflow-y:auto;}
+    .file-item {display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;gap:10px;flex-wrap:wrap;}
+    .file-info {flex:1 1 220px;min-width:0;word-break:break-all;display:flex;flex-direction:column;gap:2px;}
+    .download-btn {width:auto;min-width:100px;margin:0 0 0 8px;padding:7px 16px;font-size:14px;border-radius:7px;background:linear-gradient(45deg,#00d2ff,#3a47d5);color:white;cursor:pointer;border:none;transition:.3s;}
+    .download-btn:active {background:linear-gradient(45deg,#3a47d5,#00d2ff);}
+    .zip-btn {width:100%;margin-top:15px;padding:12px;font-size:16px;border-radius:8px;background:linear-gradient(45deg,#0033ff,#00d2ff);color:white;font-weight:bold;}
+    .seo-content {margin-top:30px;font-size:14px;color:#ccc;text-align:left;line-height:1.6;transition:color .3s;}
+    body.light-mode .seo-content {color:#333;}
+    @media (max-width:700px){.container{padding:8px;}.file-item{flex-direction:column;gap:5px;}.theme-toggle{top:8px;right:8px;padding:8px 12px;min-width:120px;font-size:13px;}.home-link{top:8px;left:8px;padding:8px 12px;font-size:14px;}.download-btn{min-width:65px;font-size:13px;padding:5px 10px;}}
+  </style>
+</head>
+<body class="dark-mode">
+  <div id="particles-js"></div>
+  <a href="index.html" class="home-link">🏠 Home</a>
+  <button class="theme-toggle" id="themeBtn">☀️ Switch to Light Mode</button>
+
+  <header>
+    <h1>📝 Text to PDF</h1>
+  </header>
+  <div class="container">
+    <p style="color:#81e6ff;font-size:15px;margin:0 0 8px 0;">
+      💡 Convert TXT files or paste your text below. Each TXT will become a PDF, or enter custom text to get a single PDF.
+    </p>
+    <input type="file" id="txtUpload" accept=".txt" multiple>
+    <textarea id="customText" placeholder="Or type/paste your text here..."></textarea>
+    <ul id="pdfList"></ul>
+    <button onclick="convertText()" id="startBtn">Convert to PDF</button>
+    <button class="zip-btn" onclick="downloadZip()" style="display:none;" id="zipBtn">Download All (ZIP)</button>
+  </div>
+
+  <section class="seo-content">
+    <div class="container">
+      <p>Use this free online tool to convert your TXT files or custom text to PDF. Fast, batch, no watermark, secure and easy.</p>
+    </div>
+  </section>
+
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80 },
+        color: { value: "#00d0ff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5 },
+        size: { value: 3 },
+        move: { enable: true, speed: 1.5 },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#00ffff",
+          opacity: 0.4,
+          width: 1
+        }
+      }
+    });
+
+    const txtUpload = document.getElementById('txtUpload');
+    const customText = document.getElementById('customText');
+    const pdfList = document.getElementById('pdfList');
+    const zipBtn = document.getElementById('zipBtn');
+    const startBtn = document.getElementById('startBtn');
+    let pdfFiles = [];
+
+    txtUpload.addEventListener('change', () => {
+      pdfList.innerHTML = '';
+      pdfFiles = [];
+      zipBtn.style.display = "none";
+      if (txtUpload.files.length) {
+        customText.value = '';
+      }
+      for (let i = 0; i < txtUpload.files.length; i++) {
+        const li = document.createElement('li');
+        li.textContent = `${i + 1}. ${txtUpload.files[i].name}`;
+        pdfList.appendChild(li);
+      }
+    });
+
+    function showDownloadList() {
+      pdfList.innerHTML = '';
+      pdfFiles.forEach((file, i) => {
+        const li = document.createElement('li');
+        li.className = 'file-item';
+        const info = document.createElement('div');
+        info.className = 'file-info';
+        info.innerHTML = `<strong>${i + 1}. ${file.origName} <span style="color:#47ffe1;">→</span> <span style="color:#ffd700;">${file.pdfName}</span></strong>`;
+        const btnDownload = document.createElement('button');
+        btnDownload.className = 'download-btn';
+        btnDownload.textContent = 'Download';
+        btnDownload.onclick = () => {
+          const url = URL.createObjectURL(file.blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = file.pdfName;
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          }, 200);
+        };
+        li.appendChild(info);
+        li.appendChild(btnDownload);
+        pdfList.appendChild(li);
+      });
+    }
+
+    async function convertText() {
+      pdfFiles = [];
+      startBtn.disabled = true;
+      startBtn.textContent = "Converting...";
+      try {
+        if (txtUpload.files.length) {
+          const files = Array.from(txtUpload.files);
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const pdfName = file.name.replace(/\.txt$/i, '') + '.pdf';
+            let text = await file.text();
+            const blob = await textToPdfBlob(text);
+            pdfFiles.push({
+              origName: file.name,
+              pdfName,
+              blob
+            });
+          }
+        } else if (customText.value.trim()) {
+          const pdfName = 'custom-text.pdf';
+          const blob = await textToPdfBlob(customText.value.trim());
+          pdfFiles.push({
+            origName: "Your Text",
+            pdfName,
+            blob
+          });
+        } else {
+          alert('Please upload at least one TXT file or enter text!');
+          startBtn.disabled = false;
+          startBtn.textContent = "Convert to PDF";
+          return;
+        }
+        showDownloadList();
+        zipBtn.style.display = "block";
+      } catch (err) {
+        alert('Conversion failed! Try simpler/shorter content. \n\nError: ' + (err.message || err));
+        console.error(err);
+      }
+      startBtn.disabled = false;
+      startBtn.textContent = "Convert to PDF";
+    }
+
+    // 支持中英文（CJK）字体的 text -> PDF
+    async function textToPdfBlob(text) {
+      // 字体文件路径，请确保文件放在此路径
+      const fontUrl = './assets/SourceHanSansSC-Regular.otf'; // 或 './SourceHanSansSC-Regular.otf'
+      const fontBytes = await fetch(fontUrl).then(res => res.arrayBuffer());
+      const pdfDoc = await PDFLib.PDFDocument.create();
+      const font = await pdfDoc.embedFont(fontBytes);
+      const fontSize = 13;
+      const margin = 45;
+      let page = pdfDoc.addPage();
+      let pageWidth = page.getWidth();
+      let pageHeight = page.getHeight();
+      let y = pageHeight - margin;
+      const maxLineWidth = pageWidth - 2 * margin;
+      const lineHeight = fontSize + 5;
+      const maxLinesPerPage = Math.floor((pageHeight - 2 * margin) / lineHeight);
+
+      let lines = [];
+      let paragraphs = text.split(/\r?\n/);
+      for (let p of paragraphs) {
+        let words = p.split(/\s+/);
+        let line = '';
+        for (let w of words) {
+          let testLine = line.length ? line + ' ' + w : w;
+          let width = font.widthOfTextAtSize(testLine, fontSize);
+          if (width > maxLineWidth) {
+            if (line) lines.push(line);
+            line = w;
+          } else {
+            line = testLine;
+          }
+        }
+        if (line) lines.push(line);
+      }
+
+      let lineNum = 0;
+      for (let i = 0; i < lines.length; i++) {
+        if (lineNum >= maxLinesPerPage) {
+          page = pdfDoc.addPage();
+          pageWidth = page.getWidth();
+          pageHeight = page.getHeight();
+          y = pageHeight - margin;
+          lineNum = 0;
+        }
+        page.drawText(lines[i], {
+          x: margin,
+          y: y,
+          size: fontSize,
+          font: font,
+          color: PDFLib.rgb(0.2,0.3,0.45)
+        });
+        y -= lineHeight;
+        lineNum++;
+      }
+      const pdfBytes = await pdfDoc.save();
+      return new Blob([pdfBytes], {type: 'application/pdf'});
+    }
+
+    function downloadZip() {
+      if (!pdfFiles.length) return;
+      const zip = new JSZip();
+      pdfFiles.forEach(file => {
+        zip.file(file.pdfName, file.blob);
+      });
+      zip.generateAsync({type:'blob'}).then(function(content){
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(content);
+        link.download = 'text-pdfs.zip';
+        link.click();
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const body = document.body;
+      const button = document.getElementById("themeBtn");
+      function updateText() {
+        button.innerText = body.classList.contains("dark-mode")
+          ? "☀️ Switch to Light Mode"
+          : "🌙 Switch to Dark Mode";
+      }
+      updateText();
+      button.addEventListener("click", () => {
+        body.classList.toggle("light-mode");
+        body.classList.toggle("dark-mode");
+        updateText();
+      });
+    });
+  </script>
+</body>
+</html>

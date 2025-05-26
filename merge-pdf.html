@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Merge PDFs | Combine PDF Files Online Free - Smart File Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Merge multiple PDF files into a single document online. Free, secure, and fast. No sign-up required.">
+  <meta name="keywords" content="merge pdf, combine pdf, online pdf merger, free pdf tool, smart file tools">
+  <meta name="author" content="Smart File Tools">
+  <meta property="og:title" content="Merge PDFs - Smart File Tools">
+  <meta property="og:description" content="Free online PDF merger. Upload multiple PDFs and combine them into one.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourdomain.com/merge-pdf.html">
+  <meta property="og:image" content="https://yourdomain.com/assets/merge-pdf-preview.png">
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.dark-mode {
+      background-color: #000;
+      color: #fff;
+    }
+    body.light-mode {
+      background-color: #f4f8fb;
+      color: #111;
+    }
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      width: auto;
+      min-width: 160px;
+      max-width: 220px;
+      padding: 10px 22px;
+      background: #00c3ff;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2.5s ease-in-out infinite;
+      box-shadow: 0 0 14px #00c3ff99;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+    .home-link {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      padding: 10px 20px;
+      background: #202840f0;
+      color: #fff;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 12px #00c3ff77;
+      z-index: 1000;
+      transition: background 0.3s, color 0.3s;
+    }
+    .home-link:hover {
+      background: #0033ffcc;
+      color: #fff;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0px rgba(0, 195, 255, 0.4); transform: scale(1); }
+      50% { box-shadow: 0 0 20px rgba(0, 195, 255, 0.9); transform: scale(1.05); }
+      100% { box-shadow: 0 0 0px rgba(0, 195, 255, 0.4); transform: scale(1); }
+    }
+    header {
+      text-align: center;
+      padding: 60px 20px 20px;
+    }
+    header h1 {
+      font-size: 32px;
+      color: #00d0ff;
+      text-shadow: 0 0 8px #00c3ff;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 12px rgba(0,204,255,0.2);
+      text-align: center;
+    }
+    input[type="file"] {
+      margin: 10px 0;
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+    }
+    button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      font-size: 16px;
+      border-radius: 8px;
+      background: linear-gradient(45deg, #00d2ff, #3a47d5);
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 12px #3a47d5;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      margin: 10px 0;
+      color: #ccc;
+      font-size: 14px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .seo-content {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #ccc;
+      text-align: left;
+      line-height: 1.6;
+      transition: color 0.3s;
+    }
+    body.light-mode .seo-content {
+      color: #333;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 10px; }
+      .theme-toggle { top: 8px; right: 8px; padding: 8px 12px; min-width:120px; font-size: 13px;}
+      .home-link { top: 8px; left: 8px; padding: 8px 12px; font-size: 14px;}
+    }
+  </style>
+</head>
+<body class="dark-mode">
+  <div id="particles-js"></div>
+  <a href="index.html" class="home-link">🏠 Home</a>
+  <button class="theme-toggle" id="themeBtn">☀️ Switch to Light Mode</button>
+
+  <header>
+    <h1>🧩 Merge PDFs</h1>
+  </header>
+  <div class="container">
+    <p style="color:#81e6ff;font-size:15px;margin:0 0 8px 0;">
+      💡 Hold <span style="color:#ff375f;font-weight:bold;">Ctrl</span> or <span style="color:#ff375f;font-weight:bold;">Shift</span> to select several PDFs at once, then hit Open!
+    </p>
+    <input type="file" id="pdfUpload" accept="application/pdf" multiple>
+    <ul id="fileList"></ul>
+    <button onclick="mergePDFs()">Merge PDF Files</button>
+  </div>
+
+  <section class="seo-content">
+    <div class="container">
+      <p>Use this free online PDF merger to combine multiple PDF files into a single document. Simply upload the files in order, click merge, and download your unified PDF. Safe, fast, and no sign-up required.</p>
+    </div>
+  </section>
+
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80 },
+        color: { value: "#00d0ff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5 },
+        size: { value: 3 },
+        move: { enable: true, speed: 1.5 },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#00ffff",
+          opacity: 0.4,
+          width: 1
+        }
+      }
+    });
+
+    const pdfUpload = document.getElementById('pdfUpload');
+    const fileList = document.getElementById('fileList');
+
+    pdfUpload.addEventListener('change', () => {
+      fileList.innerHTML = '';
+      for (let i = 0; i < pdfUpload.files.length; i++) {
+        const li = document.createElement('li');
+        li.textContent = `${i + 1}. ${pdfUpload.files[i].name}`;
+        fileList.appendChild(li);
+      }
+    });
+
+    async function mergePDFs() {
+      const mergedPdf = await PDFLib.PDFDocument.create();
+      const files = Array.from(pdfUpload.files);
+
+      for (const file of files) {
+        const bytes = await file.arrayBuffer();
+        const pdf = await PDFLib.PDFDocument.load(bytes);
+        const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+        copiedPages.forEach(page => mergedPdf.addPage(page));
+      }
+
+      const mergedBytes = await mergedPdf.save();
+      const blob = new Blob([mergedBytes], { type: 'application/pdf' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'merged.pdf';
+      link.click();
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const body = document.body;
+      const button = document.getElementById("themeBtn");
+
+      function updateText() {
+        button.innerText = body.classList.contains("dark-mode")
+          ? "☀️ Switch to Light Mode"
+          : "🌙 Switch to Dark Mode";
+      }
+
+      updateText();
+      button.addEventListener("click", () => {
+        body.classList.toggle("light-mode");
+        body.classList.toggle("dark-mode");
+        updateText();
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Compressor | Compress Images Online Free - Smart File Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Compress your images online in seconds. Batch JPG/PNG/WebP compressor - reduce file size, keep quality, free and secure.">
+  <meta name="keywords" content="image compressor, compress jpg, compress png, online image compression, batch image compressor, free image tool, smart file tools">
+  <meta name="author" content="Smart File Tools">
+  <meta property="og:title" content="Image Compressor - Smart File Tools">
+  <meta property="og:description" content="Free online image compressor. Reduce the size of your JPG, PNG, WebP images. Batch compress and download.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourdomain.com/image-compressor.html">
+  <meta property="og:image" content="https://yourdomain.com/assets/image-compressor-preview.png">
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.dark-mode {
+      background-color: #000;
+      color: #fff;
+    }
+    body.light-mode {
+      background-color: #f4f8fb;
+      color: #111;
+    }
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      width: auto;
+      min-width: 160px;
+      max-width: 220px;
+      padding: 10px 22px;
+      background: #00c3ff;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2.5s ease-in-out infinite;
+      box-shadow: 0 0 14px #00c3ff99;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+    .home-link {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      padding: 10px 20px;
+      background: #202840f0;
+      color: #fff;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 12px #00c3ff77;
+      z-index: 1000;
+      transition: background 0.3s, color 0.3s;
+    }
+    .home-link:hover {
+      background: #0033ffcc;
+      color: #fff;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0px rgba(0, 195, 255, 0.4); transform: scale(1); }
+      50% { box-shadow: 0 0 20px rgba(0, 195, 255, 0.9); transform: scale(1.05); }
+      100% { box-shadow: 0 0 0px rgba(0, 195, 255, 0.4); transform: scale(1); }
+    }
+    header {
+      text-align: center;
+      padding: 60px 20px 20px;
+    }
+    header h1 {
+      font-size: 32px;
+      color: #00d0ff;
+      text-shadow: 0 0 8px #00c3ff;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 12px rgba(0,204,255,0.2);
+      text-align: center;
+    }
+    input[type="file"] {
+      margin: 10px 0;
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+    }
+    button, .download-btn, .zip-btn {
+      margin-top: 10px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      font-size: 16px;
+      border-radius: 8px;
+      background: linear-gradient(45deg, #00d2ff, #3a47d5);
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      text-align: center;
+      display: block;
+    }
+    button:hover, .download-btn:hover, .zip-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 12px #3a47d5;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      margin: 10px 0;
+      color: #ccc;
+      font-size: 14px;
+      max-height: 260px;
+      overflow-y: auto;
+    }
+    .file-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .file-info {
+      flex: 1 1 200px;
+      min-width: 0;
+      word-break: break-all;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .size-bar {
+      font-size: 12px;
+      color: #6ee7ff;
+      display: flex;
+      gap: 12px;
+      margin-top: 2px;
+    }
+    .size-red { color: #ff375f; }
+    .size-green { color: #12ef98; }
+    .download-btn {
+      width: auto;
+      min-width: 100px;
+      margin: 0 0 0 8px;
+      padding: 7px 16px;
+      font-size: 14px;
+      border-radius: 7px;
+      background: linear-gradient(45deg, #00d2ff, #3a47d5);
+      color: white;
+      cursor: pointer;
+      border: none;
+      transition: 0.3s;
+    }
+    .download-btn:active {
+      background: linear-gradient(45deg, #3a47d5, #00d2ff);
+    }
+    .zip-btn {
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      background: linear-gradient(45deg, #0033ff, #00d2ff);
+      color: white;
+      font-weight: bold;
+    }
+    .seo-content {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #ccc;
+      text-align: left;
+      line-height: 1.6;
+      transition: color 0.3s;
+    }
+    body.light-mode .seo-content {
+      color: #333;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 10px; }
+      .theme-toggle { top: 8px; right: 8px; padding: 8px 12px; min-width:120px; font-size: 13px;}
+      .home-link { top: 8px; left: 8px; padding: 8px 12px; font-size: 14px;}
+      .download-btn { min-width: 65px; font-size: 13px; padding: 5px 10px;}
+      .size-bar { flex-direction: column; gap: 2px;}
+    }
+  </style>
+</head>
+<body class="dark-mode">
+  <div id="particles-js"></div>
+  <a href="index.html" class="home-link">🏠 Home</a>
+  <button class="theme-toggle" id="themeBtn">☀️ Switch to Light Mode</button>
+
+  <header>
+    <h1>🖼️ Image Compressor</h1>
+  </header>
+  <div class="container">
+    <p style="color:#81e6ff;font-size:15px;margin:0 0 8px 0;">
+      💡 Hold <span style="color:#ff375f;font-weight:bold;">Ctrl</span> or <span style="color:#ff375f;font-weight:bold;">Shift</span> to select several images at once, then hit Open!
+    </p>
+    <input type="file" id="imgUpload" accept="image/jpeg,image/png,image/webp" multiple>
+    <ul id="imgList"></ul>
+    <button onclick="compressImages()">Compress Images</button>
+    <button class="zip-btn" onclick="downloadZip()" style="display:none;" id="zipBtn">Download All (ZIP)</button>
+  </div>
+
+  <section class="seo-content">
+    <div class="container">
+      <p>Use this free online image compressor to reduce the file size of your JPG, PNG, and WebP images in seconds. Upload your images, click compress, and download all your optimized images at once. No registration, no watermark, no limits.</p>
+    </div>
+  </section>
+
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80 },
+        color: { value: "#00d0ff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5 },
+        size: { value: 3 },
+        move: { enable: true, speed: 1.5 },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#00ffff",
+          opacity: 0.4,
+          width: 1
+        }
+      }
+    });
+
+    const imgUpload = document.getElementById('imgUpload');
+    const imgList = document.getElementById('imgList');
+    const zipBtn = document.getElementById('zipBtn');
+    let compressedFiles = []; // {name, blob, origSize, newSize}
+
+    imgUpload.addEventListener('change', () => {
+      imgList.innerHTML = '';
+      compressedFiles = [];
+      zipBtn.style.display = "none";
+      for (let i = 0; i < imgUpload.files.length; i++) {
+        const li = document.createElement('li');
+        li.textContent = `${i + 1}. ${imgUpload.files[i].name}`;
+        imgList.appendChild(li);
+      }
+    });
+
+    // 单文件Promise压缩
+    function compressImageFile(file) {
+      return new Promise((resolve) => {
+        const imgType = file.type;
+        const img = new Image();
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          img.onload = function() {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            let quality = 0.75;
+            let dataUrl, outName;
+            if(imgType === 'image/png'){
+              dataUrl = canvas.toDataURL('image/webp', quality);
+              outName = file.name.replace(/\.(png|jpg|jpeg|webp)$/i, '') + '-compressed.webp';
+            } else {
+              dataUrl = canvas.toDataURL('image/jpeg', quality);
+              outName = file.name.replace(/\.(png|jpg|jpeg|webp)$/i, '') + '-compressed.jpg';
+            }
+            const blob = dataURLtoBlob(dataUrl);
+            resolve({
+              name: outName,
+              blob,
+              origSize: file.size,
+              newSize: blob.size
+            });
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function formatKB(size) {
+      return (size / 1024).toFixed(1) + " KB";
+    }
+
+    function showDownloadList() {
+      imgList.innerHTML = '';
+      compressedFiles.forEach((file, i) => {
+        const li = document.createElement('li');
+        li.className = 'file-item';
+        // 文件名和大小栏
+        const info = document.createElement('div');
+        info.className = 'file-info';
+        info.innerHTML = `<strong>${i + 1}. ${file.name}</strong>
+          <span class="size-bar">
+            <span>Before: <span class="size-red">${formatKB(file.origSize)}</span></span>
+            <span>After: <span class="size-green">${formatKB(file.newSize)}</span></span>
+            <span>Saved: <span style="color:#ffd700">${Math.max(0, ((file.origSize-file.newSize)/file.origSize*100).toFixed(1))}%</span></span>
+          </span>`;
+        const btn = document.createElement('button');
+        btn.className = 'download-btn';
+        btn.textContent = 'Download';
+        btn.onclick = () => {
+          const url = URL.createObjectURL(file.blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = file.name;
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          }, 200);
+        };
+        li.appendChild(info);
+        li.appendChild(btn);
+        imgList.appendChild(li);
+      });
+    }
+
+    async function compressImages() {
+      if (!imgUpload.files.length) return alert('Please select at least one image!');
+      compressedFiles = [];
+      const files = Array.from(imgUpload.files);
+      compressedFiles = await Promise.all(files.map(f => compressImageFile(f)));
+      showDownloadList();
+      zipBtn.style.display = "block";
+    }
+
+    function downloadZip() {
+      if (!compressedFiles.length) return;
+      const zip = new JSZip();
+      compressedFiles.forEach(file => {
+        zip.file(file.name, file.blob);
+      });
+      zip.generateAsync({type:'blob'}).then(function(content){
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(content);
+        link.download = 'compressed-images.zip';
+        link.click();
+      });
+    }
+
+    function dataURLtoBlob(dataurl) {
+      var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+          bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+      while(n--) u8arr[n] = bstr.charCodeAt(n);
+      return new Blob([u8arr], {type:mime});
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const body = document.body;
+      const button = document.getElementById("themeBtn");
+      function updateText() {
+        button.innerText = body.classList.contains("dark-mode")
+          ? "☀️ Switch to Light Mode"
+          : "🌙 Switch to Dark Mode";
+      }
+      updateText();
+      button.addEventListener("click", () => {
+        body.classList.toggle("light-mode");
+        body.classList.toggle("dark-mode");
+        updateText();
+      });
+    });
+  </script>
+</body>
+</html>

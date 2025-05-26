@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Image to PDF | Convert Images to PDF Online - Smart File Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Convert images to PDF online for free. Upload multiple JPG or PNG images and download a single PDF file. No registration required." />
+  <meta name="keywords" content="image to pdf, convert images to pdf, jpg to pdf, png to pdf, online converter" />
+  <meta name="author" content="Smart File Tools" />
+  <meta property="og:title" content="Image to PDF - Smart File Tools" />
+  <meta property="og:description" content="Free online tool to convert images (JPG, PNG) into PDF. Fast, easy, and secure." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourdomain.com/image-to-pdf.html" />
+  <meta property="og:image" content="https://yourdomain.com/assets/image2pdf-preview.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    html { box-sizing: border-box; -webkit-text-size-adjust: 100%; }
+    *, *::before, *::after { box-sizing: inherit; }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.dark-mode {
+      background-color: #000;
+      color: #fff;
+    }
+    body.light-mode {
+      background-color: #f4f8fb;
+      color: #111;
+    }
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0;
+      left: 0;
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      min-width: 160px;
+      max-width: 220px;
+      padding: 10px 22px;
+      background: #00c3ff;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2.5s ease-in-out infinite;
+      box-shadow: 0 0 14px #00c3ff99;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+    .home-link {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      padding: 10px 20px;
+      background: #202840f0;
+      color: #fff;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 12px #00c3ff77;
+      z-index: 1000;
+      transition: background 0.3s, color 0.3s;
+    }
+    .home-link:hover {
+      background: #0033ffcc;
+      color: #fff;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0px rgba(0,195,255,0.4); transform: scale(1);}
+      50% { box-shadow: 0 0 20px rgba(0,195,255,0.9); transform: scale(1.05);}
+      100% { box-shadow: 0 0 0px rgba(0,195,255,0.4); transform: scale(1);}
+    }
+    header {
+      text-align: center;
+      padding: 60px 20px 20px;
+    }
+    header h1 {
+      font-size: 28px;
+      color: #00d0ff;
+      text-shadow: 0 0 10px #00c3ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    @media (min-width: 480px) {
+      header h1 { font-size: 36px; }
+    }
+    .container {
+      width: 92%;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 15px rgba(0,204,255,0.2);
+      text-align: center;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    body.light-mode .container {
+      background: rgba(255,255,255,0.94);
+      box-shadow: 0 0 12px rgba(180,220,255,0.13);
+    }
+    body.dark-mode .container {
+      background: rgba(255,255,255,0.05);
+      box-shadow: 0 0 12px rgba(0,204,255,0.2);
+    }
+    input[type="file"] {
+      margin-bottom: 20px;
+      width: 100%;
+    }
+    button {
+      background: linear-gradient(45deg, #00d2ff, #3a47d5);
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #00bfff;
+      transition: all 0.3s ease-in-out;
+      width: 100%;
+    }
+    button:hover {
+      box-shadow: 0 0 30px #3a47d5;
+      transform: scale(1.02);
+    }
+    .preview {
+      margin: 20px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    .preview img {
+      max-width: 90px;
+      max-height: 90px;
+      border: 1px solid #444;
+      border-radius: 8px;
+    }
+    .seo-content {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #ccc;
+      line-height: 1.6;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+      transition: color 0.3s;
+    }
+    body.light-mode .seo-content { color: #333; }
+    @media (max-width: 600px) {
+      .container { padding: 10px; }
+      .theme-toggle { top: 8px; right: 8px; padding: 8px 12px; min-width:120px; font-size: 13px;}
+      .home-link { top: 8px; left: 8px; padding: 8px 12px; font-size: 14px;}
+      button { font-size:13px; padding: 8px 0;}
+    }
+  </style>
+</head>
+<body class="dark-mode">
+  <div id="particles-js"></div>
+  <a href="index.html" class="home-link">🏠 Home</a>
+  <button class="theme-toggle" id="themeBtn">☀️ Switch to Light Mode</button>
+  <header>
+    <h1>
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#00e0ff" viewBox="0 0 24 24" style="filter: drop-shadow(0 0 5px #00e0ff);">
+        <path d="M4 2h10l6 6v14H4V2zm10 1.5V9h5.5L14 3.5zM8 13h2v6H8v-6zm3 0h1.5a2 2 0 1 1 0 4H11v-4zm1.5 1H13v2h-.5a1 1 0 0 1 0-2zm3.5-1h2a1 1 0 1 1 0 2h-1v1h1a1 1 0 1 1 0 2h-2v-6z"/>
+      </svg>
+      Image to PDF
+    </h1>
+  </header>
+
+  <div class="container">
+    <input type="file" id="imageInput" multiple accept="image/*" />
+    <div class="preview" id="preview"></div>
+    <button onclick="generatePDF()">Generate PDF</button>
+  </div>
+
+  <section class="seo-content">
+    <p>Use this free online tool to convert images to PDF. Simply upload your JPG or PNG files, preview them, and download a single PDF document. No signup required and all processing happens directly in your browser for maximum privacy and speed.</p>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    // 粒子背景（主题切换自适应）
+    function setParticlesTheme(isDark) {
+      particlesJS("particles-js", {
+        particles: {
+          number: { value: 60 },
+          color: { value: isDark ? "#00d0ff" : "#3399cc" },
+          shape: { type: "circle" },
+          opacity: { value: isDark ? 0.4 : 0.18 },
+          size: { value: 3 },
+          move: { enable: true, speed: 1 },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: isDark ? "#00ffff" : "#85bde6",
+            opacity: isDark ? 0.3 : 0.12,
+            width: 1
+          }
+        }
+      });
+    }
+    function reloadParticles(isDark) {
+      if (window.pJSDom && window.pJSDom.length) {
+        window.pJSDom[0].pJS.fn.vendors.destroypJS();
+        window.pJSDom = [];
+      }
+      setParticlesTheme(isDark);
+    }
+
+    // 主题切换
+    document.addEventListener("DOMContentLoaded", function () {
+      const body = document.body;
+      const button = document.getElementById("themeBtn");
+      function updateText() {
+        button.innerText = body.classList.contains("dark-mode")
+          ? "☀️ Switch to Light Mode"
+          : "🌙 Switch to Dark Mode";
+      }
+      updateText();
+      reloadParticles(body.classList.contains("dark-mode"));
+      button.addEventListener("click", () => {
+        body.classList.toggle("light-mode");
+        body.classList.toggle("dark-mode");
+        updateText();
+        reloadParticles(body.classList.contains("dark-mode"));
+      });
+    });
+
+    // 图片预览
+    const imageInput = document.getElementById("imageInput");
+    const preview = document.getElementById("preview");
+
+    imageInput.addEventListener("change", () => {
+      preview.innerHTML = "";
+      for (const file of imageInput.files) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // 图片转PDF
+    async function generatePDF() {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF();
+      for (let i = 0; i < imageInput.files.length; i++) {
+        const file = imageInput.files[i];
+        const imgData = await readFileAsDataURL(file);
+        const img = new Image();
+        img.src = imgData;
+        await img.decode();
+        const imgProps = pdf.getImageProperties(img);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        if (i > 0) pdf.addPage();
+        pdf.addImage(img, "JPEG", 0, 0, pdfWidth, pdfHeight);
+      }
+      pdf.save("images.pdf");
+    }
+
+    function readFileAsDataURL(file) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(file);
+      });
+    }
+  </script>
+</body>
+</html>
